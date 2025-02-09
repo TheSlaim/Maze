@@ -1,43 +1,62 @@
-# Example file showing a circle moving on screen
 import pygame
+from pygame.examples.moveit import WIDTH, HEIGHT
 
-# pygame setup
-pygame.init()
-screen = pygame.display.set_mode((1920,1080))
-clock = pygame.time.Clock()
-running = True
-dt = 0
 
-player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
+def main():
+    pygame.init()
+    WIDTH, HEIGHT = 800, 600
+    screen = pygame.display.set_mode((WIDTH, HEIGHT))
+    pygame.display.set_caption("Super Labyrinth Game")
+    clock = pygame.time.Clock()
+    running = True
 
-while running:
-    # poll for events
-    # pygame.QUIT event means the user clicked X to close your window
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
+    STEP = 10
 
-    # fill the screen with a color to wipe away anything from last frame
-    screen.fill("purple")
+    WHITE = (255, 255, 255)
+    RED = (255,0,0)
+    BLACK = (0, 0, 0)
+    BLUE = (0, 0, 255)
+    green = (0, 255, 0)
 
-    pygame.draw.circle(screen, "red", player_pos, 20)
+    square_size = 50
+    square_one_x = (WIDTH - square_size) // 2
+    square_one_y = (HEIGHT - square_size) // 2
 
-    keys = pygame.key.get_pressed()
-    if keys[pygame.K_w]:
-        player_pos.y -= 200 * dt
-    if keys[pygame.K_s]:
-        player_pos.y += 200 * dt
-    if keys[pygame.K_a]:
-        player_pos.x -= 200 * dt
-    if keys[pygame.K_d]:
-        player_pos.x += 200 * dt
+    square_two_x = -50
+    square_two_y = (HEIGHT - square_size)
 
-    # flip() the display to put your work on screen
-    pygame.display.flip()
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
 
-    # limits FPS to 60
-    # dt is delta time in seconds since last frame, used for framerate-
-    # independent physics.
-    dt = clock.tick(60) / 1000
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_LEFT:
+                    square_one_x -= STEP
+                elif event.type == pygame.KEYDOWN:
+                    if event.key ==pygame.K_RIGHT:
+                        square_one_x += STEP
+                    elif event.key ==pygame.K_UP:
+                        square_one_y -= STEP
+                    elif event.key ==pygame.K_DOWN:
+                        square_one_y += STEP
 
-pygame.quit()
+
+        screen.fill("purple")
+        pygame.draw.rect(screen, BLUE, (square_one_x, square_one_y, square_size, square_size))
+        pygame.draw.rect(screen, BLUE, (square_two_x, square_two_y, square_size, square_size))
+
+        if square_two_x > WIDTH + 50:
+            square_two_x = -50
+        else:
+            square_two_x += STEP
+
+
+        pygame.display.flip()
+
+        clock.tick(60)  # limits FPS to 60
+
+    pygame.quit()
+
+if __name__ == "__main__":
+    main()
