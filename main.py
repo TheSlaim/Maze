@@ -1,6 +1,9 @@
 import pygame
 from pygame.examples.moveit import WIDTH, HEIGHT
-
+def load_background_img(url):
+    maze = pygame.image.load(url).convert()
+    mask = pygame.mask.from_threshold(maze, (0, 0, 0, 255), (1, 1, 1, 255))
+    return maze, mask
 
 def main():
     pygame.init()
@@ -18,9 +21,15 @@ def main():
     BLUE = (0, 0, 255)
     green = (0, 255, 0)
 
-    square_size = 50
-    square_one_x = (WIDTH - square_size) // 2
-    square_one_y = (HEIGHT - square_size) // 2
+    maze, mask = load_background_img("maze.png")
+
+    square_size = 30
+    square_x = 10
+    square_y = 10
+    start_x, start_y = square_x, square_y
+
+    player_img = pygame.image.load("Slime.png")
+    player_img = pygame.transform.scale(player_img, (square_size, square_size))
 
     square_two_x = -50
     square_two_y = (HEIGHT - square_size)
@@ -32,24 +41,23 @@ def main():
 
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
-                    square_one_x -= STEP
+                    square_x -= STEP
                 elif event.type == pygame.KEYDOWN:
                     if event.key ==pygame.K_RIGHT:
-                        square_one_x += STEP
+                        square_x += STEP
                     elif event.key ==pygame.K_UP:
-                        square_one_y -= STEP
+                        square_y -= STEP
                     elif event.key ==pygame.K_DOWN:
-                        square_one_y += STEP
+                        square_y += STEP
 
+        square_mask = pygame.Mask((square_size, square_size), fill=True)
 
-        screen.fill("purple")
-        pygame.draw.rect(screen, BLUE, (square_one_x, square_one_y, square_size, square_size))
-        pygame.draw.rect(screen, BLUE, (square_two_x, square_two_y, square_size, square_size))
+        if mask.overlap(square_mask, (square_x, square_y)) is not None:
+            square_x, square_y = start_x, start_y
+        screen.fill("white")
+        screen.blit(maze, (0, 0))
+        screen.blit(player_img, (square_x, square_y))
 
-        if square_two_x > WIDTH + 50:
-            square_two_x = -50
-        else:
-            square_two_x += STEP
 
 
         pygame.display.flip()
