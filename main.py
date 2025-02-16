@@ -25,6 +25,10 @@ def main():
     square_two_x = -50
     square_two_y = (HEIGHT - square_size)
 
+    pygame.mixer.music.load("Maze.mp3")
+    pygame.mixer.music.play()
+    pygame.mixer.music.set_volume(0.1)
+
     while running:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -43,6 +47,10 @@ def main():
 
 
         screen.fill("purple")
+
+        if not pygame.mixer.music.get_busy():
+            pygame.mixer.music.play()
+
         pygame.draw.rect(screen, BLUE, (square_one_x, square_one_y, square_size, square_size))
         pygame.draw.rect(screen, BLUE, (square_two_x, square_two_y, square_size, square_size))
 
