@@ -21,6 +21,10 @@ def main():
     BLUE = (0, 0, 255)
     GREEN = (0, 255, 0)
 
+    pygame.mixer.music.load("ref/Maze.mp3")
+    pygame.mixer.music.set_volume(0.7)
+    pygame.mixer.music.play(-1)
+
     green_square_size = 40
     green_square_x = 20
     green_square_y = 590
@@ -71,18 +75,32 @@ def main():
                 if current_maze_index == 1:
                     green_square_x = 760
                     green_square_y = 590
+                    # pygame.mixer.music.unload("ref/Maze.mp3")
+                    # pygame.mixer.music.load("ref/Maze2.mp3")
+                    # pygame.mixer.music.set_volume(0.7)
+                    # pygame.mixer.music.play(-1)
                 elif current_maze_index == 2:
                     green_square_x = 20
                     green_square_y = 590
+                    # pygame.mixer.music.unload("ref/Maze2.mp3")
+                    # pygame.mixer.music.load("ref/Maze3.mp3")
+                    # pygame.mixer.music.set_volume(0.7)
+                    # pygame.mixer.music.play(-1)
                 elif current_maze_index == 3:
-                    green_square_x = 1000
-                    green_square_y = 1000
+                    # pygame.mixer.music.unload("ref/Maze3.mp3")
+                    # pygame.mixer.music.load("ref/Maze4.mp3")
+                    # pygame.mixer.music.set_volume(0.7)
+                    # pygame.mixer.music.play(-1)
+
+        # if not pygame.mixer.music.get_busy():  # If not playing
+        #     pygame.mixer.music.play()
 
 
         screen.fill("white")
         screen.blit(maze, (0, 0))
-        pygame.draw.rect(screen, GREEN, (green_square_x, green_square_y, green_square_size, green_square_size))
-        screen.blit(player_img, (square_x, square_y))
+        if current_maze_index < len(maze_paths) - 1:
+            pygame.draw.rect(screen, GREEN, (green_square_x, green_square_y, green_square_size, green_square_size))
+            screen.blit(player_img, (square_x, square_y))
 
 
 
