@@ -75,25 +75,22 @@ def main():
                 if current_maze_index == 1:
                     green_square_x = 760
                     green_square_y = 590
-                    # pygame.mixer.music.unload("ref/Maze.mp3")
-                    # pygame.mixer.music.load("ref/Maze2.mp3")
-                    # pygame.mixer.music.set_volume(0.7)
-                    # pygame.mixer.music.play(-1)
+                    pygame.mixer.music.load("ref/Maze2.mp3")
+                    pygame.mixer.music.set_volume(0.7)
+                    pygame.mixer.music.play(-1)
                 elif current_maze_index == 2:
                     green_square_x = 20
                     green_square_y = 590
-                    # pygame.mixer.music.unload("ref/Maze2.mp3")
-                    # pygame.mixer.music.load("ref/Maze3.mp3")
-                    # pygame.mixer.music.set_volume(0.7)
-                    # pygame.mixer.music.play(-1)
+                    pygame.mixer.music.load("ref/Maze3.mp3")
+                    pygame.mixer.music.set_volume(0.7)
+                    pygame.mixer.music.play(-1)
                 elif current_maze_index == 3:
-                    # pygame.mixer.music.unload("ref/Maze3.mp3")
-                    # pygame.mixer.music.load("ref/Maze4.mp3")
-                    # pygame.mixer.music.set_volume(0.7)
-                    # pygame.mixer.music.play(-1)
+                    pygame.mixer.music.load("ref/The_end.mp3")
+                    pygame.mixer.music.set_volume(0.7)
+                    pygame.mixer.music.play(-1)
 
-        # if not pygame.mixer.music.get_busy():  # If not playing
-        #     pygame.mixer.music.play()
+        if not pygame.mixer.music.get_busy():  # If not playing
+            pygame.mixer.music.play()
 
 
         screen.fill("white")
